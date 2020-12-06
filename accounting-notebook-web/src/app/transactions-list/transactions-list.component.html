@@ -7,7 +7,7 @@
             <h5 class="mb-0">
                 <a class="btn btn-link" type="button" data-toggle="collapse" href="#transaction-{{ i }}"
                     style="color: white;">
-                    {{ transaction.type + ' - ' + transaction.amount }}
+                    {{ transaction.type + ' - $' + transaction.amount }}
                 </a>
             </h5>
         </div>
@@ -17,7 +17,7 @@
           'debit-body':transaction.type === 'Debit',
           'credit-body':transaction.type === 'Credit'
         }">
-                Transaction was processed on {{ transaction.effectiveDate | date }}
+                Transaction was processed on {{ transaction.effectiveDate | date :'short' }}
             </div>
         </div>
     </div>
