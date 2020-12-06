@@ -1,5 +1,6 @@
 ﻿using AccountingNotebook.Data;
 using AccountingNotebook.Services.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,27 @@ namespace AccountingNotebook.Services
         {
             var result = await _provider.GetByIdAsync(id);
             return result == null ? null : new Transaction { Amount = result.Amount, EffectiveDate = result.EffectiveDate, Id = result.Id, Type = result.Type };
+        }
+
+
+
+        public async Task<Transaction> CreateTransactionAsync(CreateTransaction createTransaction)
+        {
+            if ((await CalculateResultingCreditAsync(createTransaction.Type, createTransaction.Amount)) < 0)
+            {
+                throw new ArgumentOutOfRangeException("Not enough credit to perform that transaction");
+            }
+
+            var entity = new Data.Entities.Transaction { Type = createTransaction.Type, Amount = createTransaction.Amount };
+            var result = await _provider.CreateAsync(entity);
+
+            return new Transaction { Amount = result.Amount, EffectiveDate = result.EffectiveDate, Id = result.Id, Type = result.Type };
+        }
+
+        private async Task<double> CalculateResultingCreditAsync(TransactionType type, double amount)
+        {
+            var currentBalance = await _provider.GetAvailableFundsAsync();
+            return type == TransactionType.Credit ? currentBalance + amount : currentBalance - amount;
         }
     }
 }

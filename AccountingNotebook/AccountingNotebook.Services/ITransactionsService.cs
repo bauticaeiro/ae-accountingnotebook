@@ -8,5 +8,6 @@ namespace AccountingNotebook.Services
     {
         Task<IEnumerable<Transaction>> GetAllAsync();
         Task<Transaction> GetByIdAsync(int id);
+        Task<Transaction> CreateTransactionAsync(CreateTransaction createTransaction);
     }
 }

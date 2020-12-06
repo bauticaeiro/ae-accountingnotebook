@@ -15,10 +15,6 @@ namespace AccountingNotebook.Data
                 new Transaction { Id = 2, Amount = 80.27, Type = TransactionType.Debit, EffectiveDate = new DateTime(2020, 8, 4)  },
             };
 
-        public InMemoryTransactionsProvider()
-        {
-        }
-
         public async Task<IEnumerable<Transaction>> GetAllAsync()
         {
             return _transactions;
@@ -27,6 +23,21 @@ namespace AccountingNotebook.Data
         public async Task<Transaction> GetByIdAsync(int id)
         {
             return _transactions.SingleOrDefault(t => t.Id == id);
+        }
+        
+        public async Task<Transaction> CreateAsync(Transaction entity)
+        {
+            entity.Id = _transactions.Count + 1;
+            entity.EffectiveDate = DateTime.UtcNow;
+
+            _transactions.Add(entity);
+
+            return entity;
+        }
+
+        public async Task<double> GetAvailableFundsAsync()
+        {
+            return _transactions.Sum(t => t.Type == TransactionType.Credit ? t.Amount : -t.Amount);
         }
     }
 }
