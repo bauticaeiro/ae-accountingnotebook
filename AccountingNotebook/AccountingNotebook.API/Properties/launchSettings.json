@@ -20,7 +20,7 @@
     "AccountingNotebook.API": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "api/transactions",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

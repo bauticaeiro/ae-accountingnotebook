@@ -10,10 +10,12 @@ namespace AccountingNotebook.Services
     public class TransactionsService : ITransactionsService
     {
         private readonly ITransactionsProvider _provider;
+        private readonly IFundsService _fundsService;
 
-        public TransactionsService(ITransactionsProvider provider)
+        public TransactionsService(ITransactionsProvider provider, IFundsService fundsService)
         {
             _provider = provider;
+            _fundsService = fundsService;
         }
 
         public async Task<IEnumerable<Transaction>> GetAllAsync()
@@ -27,8 +29,6 @@ namespace AccountingNotebook.Services
             var result = await _provider.GetByIdAsync(id);
             return result == null ? null : new Transaction { Amount = result.Amount, EffectiveDate = result.EffectiveDate, Id = result.Id, Type = result.Type };
         }
-
-
 
         public async Task<(Transaction, string)> CreateTransactionAsync(CreateTransaction createTransaction)
         {
@@ -50,7 +50,7 @@ namespace AccountingNotebook.Services
 
         private async Task<double> CalculateResultingCreditAsync(CreateTransaction createTransaction)
         {
-            var currentBalance = await _provider.GetAvailableFundsAsync();
+            var currentBalance = await _fundsService.GetCurrentFundsAsync();
             return createTransaction.Type == TransactionType.Credit ? currentBalance + createTransaction.Amount : currentBalance - createTransaction.Amount;
         }
     }
