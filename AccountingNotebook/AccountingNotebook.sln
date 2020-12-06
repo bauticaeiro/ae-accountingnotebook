@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30607.51
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingNotebook.API", "AccountingNotebook.API\AccountingNotebook.API.csproj", "{EA1E18A1-0984-45B6-87CF-E4E40337E0D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingNotebook.Services", "AccountingNotebook.Services\AccountingNotebook.Services.csproj", "{92C2B7DC-3CF3-4927-B4D4-0CFB98A1BD49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingNotebook.Data", "AccountingNotebook.Data\AccountingNotebook.Data.csproj", "{AE293204-81FC-4758-AB03-F5D75AEB5929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{EA1E18A1-0984-45B6-87CF-E4E40337E0D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA1E18A1-0984-45B6-87CF-E4E40337E0D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA1E18A1-0984-45B6-87CF-E4E40337E0D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92C2B7DC-3CF3-4927-B4D4-0CFB98A1BD49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C2B7DC-3CF3-4927-B4D4-0CFB98A1BD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C2B7DC-3CF3-4927-B4D4-0CFB98A1BD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C2B7DC-3CF3-4927-B4D4-0CFB98A1BD49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE293204-81FC-4758-AB03-F5D75AEB5929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE293204-81FC-4758-AB03-F5D75AEB5929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE293204-81FC-4758-AB03-F5D75AEB5929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE293204-81FC-4758-AB03-F5D75AEB5929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
