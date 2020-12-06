@@ -44,15 +44,12 @@ namespace AccountingNotebook.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] CreateTransaction createTransaction)
         {
-            try
+            var result = await _service.CreateTransactionAsync(createTransaction);
+            if (!string.IsNullOrEmpty(result.Item2))
             {
-                var result = await _service.CreateTransactionAsync(createTransaction);
-                return CreatedAtRoute("Get", new { id = result.Id }, result);
+                return BadRequest(result.Item2);
             }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return CreatedAtRoute("Get", new { id = result.Item1.Id }, result.Item1);
         }
     }
 }

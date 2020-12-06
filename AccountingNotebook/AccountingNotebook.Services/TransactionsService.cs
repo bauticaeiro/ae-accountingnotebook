@@ -30,23 +30,28 @@ namespace AccountingNotebook.Services
 
 
 
-        public async Task<Transaction> CreateTransactionAsync(CreateTransaction createTransaction)
+        public async Task<(Transaction, string)> CreateTransactionAsync(CreateTransaction createTransaction)
         {
-            if ((await CalculateResultingCreditAsync(createTransaction.Type, createTransaction.Amount)) < 0)
+            var errors = string.Empty;
+            if (createTransaction.Amount == 0)
             {
-                throw new ArgumentOutOfRangeException("Not enough credit to perform that transaction");
+                return (null, "Please specify a value for the transaction.");
+            }
+            if (await CalculateResultingCreditAsync(createTransaction) < 0)
+            {
+                return (null, "Insufficient funds to perform transaction");
             }
 
             var entity = new Data.Entities.Transaction { Type = createTransaction.Type, Amount = createTransaction.Amount };
             var result = await _provider.CreateAsync(entity);
 
-            return new Transaction { Amount = result.Amount, EffectiveDate = result.EffectiveDate, Id = result.Id, Type = result.Type };
+            return (new Transaction { Amount = result.Amount, EffectiveDate = result.EffectiveDate, Id = result.Id, Type = result.Type }, errors);
         }
 
-        private async Task<double> CalculateResultingCreditAsync(TransactionType type, double amount)
+        private async Task<double> CalculateResultingCreditAsync(CreateTransaction createTransaction)
         {
             var currentBalance = await _provider.GetAvailableFundsAsync();
-            return type == TransactionType.Credit ? currentBalance + amount : currentBalance - amount;
+            return createTransaction.Type == TransactionType.Credit ? currentBalance + createTransaction.Amount : currentBalance - createTransaction.Amount;
         }
     }
 }

@@ -41,8 +41,8 @@ namespace AccountingNotebook.API
             {
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
-
-            services.AddControllers();
+            
+            services.AddControllers(o => o.Filters.Add<GlobalExceptionFilter>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
