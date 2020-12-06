@@ -1,0 +1,17 @@
+.debit-header {
+    background-color: rgb(182, 70, 70);
+    color: white;
+}
+
+.credit-header {
+    background-color: rgb(43, 43, 153);
+    color: white;
+}
+
+.debit-body {
+    background-color: rgb(233, 146, 146);
+}
+
+.credit-body {
+    background-color: rgb(162, 162, 247);
+}

@@ -1,8 +1,24 @@
-<li *ngFor="let transaction of transactions$ | async">
-    <span>
-        {{ transaction.type }}
-    </span>
-    <span>
-        {{ transaction.amount }}
-    </span>
-</li>
+<div class="accordion" *ngFor="let transaction of transactions$ | async; let i = index">
+    <div class="card">
+        <div class="card-header" [ngClass]="{
+        'debit-header':transaction.type === 'Debit',
+        'credit-header':transaction.type === 'Credit'
+      }">
+            <h5 class="mb-0">
+                <a class="btn btn-link" type="button" data-toggle="collapse" href="#transaction-{{ i }}"
+                    style="color: white;">
+                    {{ transaction.type + ' - ' + transaction.amount }}
+                </a>
+            </h5>
+        </div>
+
+        <div id="transaction-{{ i }}" class="collapse">
+            <div class="card-body" [ngClass]="{
+          'debit-body':transaction.type === 'Debit',
+          'credit-body':transaction.type === 'Credit'
+        }">
+                Transaction was processed on {{ transaction.effectiveDate | date }}
+            </div>
+        </div>
+    </div>
+</div>
