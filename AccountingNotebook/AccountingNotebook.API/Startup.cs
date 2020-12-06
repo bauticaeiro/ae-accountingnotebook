@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AccountingNotebook.Data;
 using AccountingNotebook.Services;
@@ -36,6 +37,11 @@ namespace AccountingNotebook.API
                        .AllowAnyHeader();
             }));
 
+            services.AddControllers().AddJsonOptions(opt =>
+            {
+                opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
             services.AddControllers();
         }
 
@@ -46,6 +52,8 @@ namespace AccountingNotebook.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowAny");
 
             app.UseRouting();
 
