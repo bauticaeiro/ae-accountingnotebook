@@ -340,14 +340,14 @@ ASALocalRun/
 healthchecksdb
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+accounting-notebook-web/dist
+accounting-notebook-web/tmp
+accounting-notebook-web/out-tsc
 # Only exists if Bazel was run
 /bazel-out
 
 # dependencies
-/node_modules
+accounting-notebook-web/node_modules
 
 # profiling files
 chrome-profiler-events*.json
