@@ -1,0 +1,8 @@
+<li *ngFor="let transaction of transactions$ | async">
+    <span>
+        {{ transaction.type }}
+    </span>
+    <span>
+        {{ transaction.amount }}
+    </span>
+</li>
